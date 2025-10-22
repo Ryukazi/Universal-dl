@@ -8,17 +8,13 @@ export const instagramDownload = async (req, res) => {
   if (!url) return res.json({ status: false, message: "URL is required" });
 
   try {
-    let result;
-    
-    if (url.includes("/stories/")) {
-      // Use story download service
-      result = await InstagramService.downloadStory(url);
-    } else {
-      // Use regular post download service
-      result = await InstagramService.download(url);
+    // Call the universal download function for all Instagram URLs
+    const result = await InstagramService.download(url);
+
+    if (!result) {
+      return res.json({ status: false, message: "Failed to fetch Instagram video/story" });
     }
 
-    // Add creator info
     if (typeof result === "object") result.creator = "Denish Tharu";
 
     res.json({
@@ -28,7 +24,11 @@ export const instagramDownload = async (req, res) => {
       result
     });
   } catch (err) {
-    res.json({ status: false, message: "Failed to fetch Instagram video/story", error: err.message });
+    res.json({
+      status: false,
+      message: "Failed to fetch Instagram video/story",
+      error: err.response?.data || err.message
+    });
   }
 };
 
