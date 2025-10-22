@@ -4,26 +4,26 @@ import downloadRoutes from "./routes/downloadRoutes.js";
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Use all download routes
+// Use download routes
 app.use("/api", downloadRoutes);
 
-// Root route showing API info
+// Root route to show API info
 app.get("/", (req, res) => {
   res.send(`
     <h2>🎬 Universal Downloader API</h2>
     <p>Creator: Denish Tharu</p>
-    <h3>Available Endpoints:</h3>
+    <p>Available Endpoints:</p>
     <ul>
-      <li><strong>/api/instagram?url=INSTAGRAM_URL</strong> - For Instagram posts & stories</li>
-      <li><strong>/api/tiktok?url=TIKTOK_URL</strong> - For TikTok videos</li>
-      <li><strong>/api/youtube?url=YOUTUBE_URL</strong> - For YouTube videos</li>
-      <li><strong>/api/facebook?url=FACEBOOK_URL</strong> - For Facebook videos</li>
+      <li>/api/instagram?url=INSTAGRAM_URL</li>
+      <li>/api/tiktok?url=TIKTOK_URL</li>
+      <li>/api/youtube?url=YOUTUBE_URL</li>
+      <li>/api/facebook?url=FACEBOOK_URL</li>
     </ul>
-    <p>Use <strong>GET</strong> request with <code>url</code> query parameter.</p>
+    <p>Use the endpoints with a <strong>GET</strong> request and add the <code>url</code> query parameter.</p>
   `);
 });
 
-// Start the server
+// Start server
 app.listen(PORT, () => {
   console.log("======================================");
   console.log("🎬 Universal Downloader API is running!");
