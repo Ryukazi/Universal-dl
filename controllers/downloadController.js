@@ -2,47 +2,80 @@ import * as InstagramService from "../services/instagramService.js";
 import * as TikTokService from "../services/tiktokService.js";
 import * as YouTubeService from "../services/youtubeService.js";
 import * as FacebookService from "../services/facebookService.js";
-import * as StoryService from "../services/storyService.js";
 
-export const downloadVideo = async (req, res) => {
+export const instagramDownload = async (req, res) => {
   const url = req.query.url;
   if (!url) return res.json({ status: false, message: "URL is required" });
 
   try {
-    let result = null;
-    let platform = "";
-
-    if (url.includes("tiktok.com")) {
-      platform = "TikTok";
-      result = await TikTokService.download(url);
-    } else if (url.includes("instagram.com/stories")) {
-      platform = "Instagram Story";
-      result = await StoryService.download(url);
-    } else if (url.includes("instagram.com")) {
-      platform = "Instagram";
-      result = await InstagramService.download(url);
-    } else if (url.includes("facebook.com") || url.includes("fb.watch")) {
-      platform = "Facebook";
-      result = await FacebookService.download(url);
-    } else if (url.includes("youtube.com") || url.includes("youtu.be")) {
-      platform = "YouTube";
-      result = await YouTubeService.download(url);
-    } else {
-      return res.json({ status: false, message: "Unsupported platform" });
-    }
-
-    // Ensure creator is always "Denish Tharu"
-    if (typeof result === "object") {
-      result.creator = "Denish Tharu";
-    }
+    const result = await InstagramService.download(url);
+    // Always add creator
+    if (typeof result === "object") result.creator = "Denish Tharu";
 
     res.json({
       status: true,
-      platform,
+      platform: "Instagram",
       creator: "Denish Tharu",
       result
     });
   } catch (err) {
-    res.json({ status: false, message: "Failed to fetch video", error: err.message });
+    res.json({ status: false, message: "Failed to fetch Instagram video", error: err.message });
+  }
+};
+
+export const tiktokDownload = async (req, res) => {
+  const url = req.query.url;
+  if (!url) return res.json({ status: false, message: "URL is required" });
+
+  try {
+    const result = await TikTokService.download(url);
+    if (typeof result === "object") result.creator = "Denish Tharu";
+
+    res.json({
+      status: true,
+      platform: "TikTok",
+      creator: "Denish Tharu",
+      result
+    });
+  } catch (err) {
+    res.json({ status: false, message: "Failed to fetch TikTok video", error: err.message });
+  }
+};
+
+export const youtubeDownload = async (req, res) => {
+  const url = req.query.url;
+  if (!url) return res.json({ status: false, message: "URL is required" });
+
+  try {
+    const result = await YouTubeService.download(url);
+    if (typeof result === "object") result.creator = "Denish Tharu";
+
+    res.json({
+      status: true,
+      platform: "YouTube",
+      creator: "Denish Tharu",
+      result
+    });
+  } catch (err) {
+    res.json({ status: false, message: "Failed to fetch YouTube video", error: err.message });
+  }
+};
+
+export const facebookDownload = async (req, res) => {
+  const url = req.query.url;
+  if (!url) return res.json({ status: false, message: "URL is required" });
+
+  try {
+    const result = await FacebookService.download(url);
+    if (typeof result === "object") result.creator = "Denish Tharu";
+
+    res.json({
+      status: true,
+      platform: "Facebook",
+      creator: "Denish Tharu",
+      result
+    });
+  } catch (err) {
+    res.json({ status: false, message: "Failed to fetch Facebook video", error: err.message });
   }
 };
