@@ -11,7 +11,7 @@ Download media from TikTok, YouTube, Facebook, Instagram — all in one easy-to-
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=ddenesh072/universal-dl&type=Date)](https://www.star-history.com/#Ryukazi/universal-dl&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=Ryukazi/universal-dl&type=Date)](https://www.star-history.com/#Ryukazi/universal-dl&Date)
 
 ---
 
