@@ -8,8 +8,17 @@ export const instagramDownload = async (req, res) => {
   if (!url) return res.json({ status: false, message: "URL is required" });
 
   try {
-    const result = await InstagramService.download(url);
-    // Always add creator
+    let result;
+    
+    if (url.includes("/stories/")) {
+      // Use story download service
+      result = await InstagramService.downloadStory(url);
+    } else {
+      // Use regular post download service
+      result = await InstagramService.download(url);
+    }
+
+    // Add creator info
     if (typeof result === "object") result.creator = "Denish Tharu";
 
     res.json({
@@ -19,7 +28,7 @@ export const instagramDownload = async (req, res) => {
       result
     });
   } catch (err) {
-    res.json({ status: false, message: "Failed to fetch Instagram video", error: err.message });
+    res.json({ status: false, message: "Failed to fetch Instagram video/story", error: err.message });
   }
 };
 
