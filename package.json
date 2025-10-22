@@ -15,7 +15,7 @@
     "axios": "^1.6.6",
     "express": "^4.18.2",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^4.9.1"
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
     "nodemon": "^3.0.2"
