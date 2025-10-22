@@ -3,7 +3,7 @@ import { instagramDownload, tiktokDownload, youtubeDownload, facebookDownload } 
 
 const router = express.Router();
 
-// Instagram posts + stories
+// Instagram posts + stories (single endpoint)
 router.get("/instagram", instagramDownload);
 
 // TikTok
