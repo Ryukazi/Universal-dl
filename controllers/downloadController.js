@@ -3,13 +3,13 @@ import { downloadInstagramStory } from "../services/instaStoryService.js";
 import * as TikTokService from "../services/tiktokService.js";
 import * as YouTubeService from "../services/youtubeService.js";
 import * as FacebookService from "../services/facebookService.js";
+import { downloadPinterest } from "../services/pinterestService.js"; // ✅ new
 
 export const instagramDownload = async (req, res) => {
   const url = req.query.url;
   if (!url) return res.json({ status: false, message: "URL is required" });
 
   try {
-    // Determine if URL is a story or post/reel
     let result;
     if (url.includes("/stories/")) {
       result = await downloadInstagramStory(url);
@@ -92,5 +92,27 @@ export const facebookDownload = async (req, res) => {
     });
   } catch (err) {
     res.json({ status: false, message: "Failed to fetch Facebook video", error: err.message });
+  }
+};
+
+// ✅ New: Pinterest download
+export const pinterestDownload = async (req, res) => {
+  const url = req.query.url;
+  if (!url) return res.json({ status: false, message: "URL is required" });
+
+  try {
+    const result = await downloadPinterest(url);
+    if (!result || !result.status) {
+      return res.json({ status: false, message: "Failed to fetch Pinterest media" });
+    }
+
+    res.json({
+      status: true,
+      platform: "Pinterest",
+      creator: "Denish Tharu",
+      result
+    });
+  } catch (err) {
+    res.json({ status: false, message: "Failed to fetch Pinterest media", error: err.message });
   }
 };
