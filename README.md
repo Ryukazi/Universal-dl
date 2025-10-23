@@ -23,6 +23,7 @@ Download media from TikTok, YouTube, Facebook, Instagram — all in one easy-to-
   - YouTube
   - Facebook
   - Instagram
+  - pinterest
 - Easy REST API endpoints
 - Built with JavaScript
 - Modular architecture: services, controllers, routes
