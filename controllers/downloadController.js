@@ -1,4 +1,5 @@
-import * as InstagramService from "../services/instagramService.js";
+import { downloadInstagramPost } from "../services/instaService.js";
+import { downloadInstagramStory } from "../services/instaStoryService.js";
 import * as TikTokService from "../services/tiktokService.js";
 import * as YouTubeService from "../services/youtubeService.js";
 import * as FacebookService from "../services/facebookService.js";
@@ -8,8 +9,13 @@ export const instagramDownload = async (req, res) => {
   if (!url) return res.json({ status: false, message: "URL is required" });
 
   try {
-    // Call the universal download function for all Instagram URLs
-    const result = await InstagramService.download(url);
+    // Determine if URL is a story or post/reel
+    let result;
+    if (url.includes("/stories/")) {
+      result = await downloadInstagramStory(url);
+    } else {
+      result = await downloadInstagramPost(url);
+    }
 
     if (!result) {
       return res.json({ status: false, message: "Failed to fetch Instagram video/story" });
