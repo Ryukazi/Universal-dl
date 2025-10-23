@@ -5,12 +5,11 @@
 [![Join our Discord](https://img.shields.io/badge/Discord-Join%20Server-5865F2?logo=discord&logoColor=white)](https://discord.gg/qG9cCvEtA3)
 
 A universal media downloader API built with Node.js and Express.  
-Download media from TikTok, YouTube, Facebook, Instagram — all in one easy-to-use API.
+Download media from **TikTok, YouTube, Facebook, Instagram, and Pinterest** — all in one easy-to-use API.
 
 ---
 
 ## Star History
-
 
 [![Star History Chart](https://api.star-history.com/svg?repos=Ryukazi/universal-dl&type=date&legend=top-left)](https://www.star-history.com/#Ryukazi/universal-dl&type=date&legend=top-left)
 
@@ -23,7 +22,7 @@ Download media from TikTok, YouTube, Facebook, Instagram — all in one easy-to-
   - YouTube
   - Facebook
   - Instagram
-  - pinterest
+  - Pinterest
 - Easy REST API endpoints
 - Built with JavaScript
 - Modular architecture: services, controllers, routes
