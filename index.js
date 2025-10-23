@@ -10,7 +10,7 @@ app.use("/api", downloadRoutes);
 // Root route to show API info
 app.get("/", (req, res) => {
   res.send(`
-    <h2>🎬 Universal Downloader API</h2>
+    <h2>Universal Downloader API</h2>
     <p>Creator: Denish Tharu</p>
     <p>Available Endpoints:</p>
     <ul>
