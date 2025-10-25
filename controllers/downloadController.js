@@ -3,8 +3,10 @@ import { downloadInstagramStory } from "../services/instaStoryService.js";
 import * as TikTokService from "../services/tiktokService.js";
 import * as YouTubeService from "../services/youtubeService.js";
 import * as FacebookService from "../services/facebookService.js";
-import { downloadPinterest } from "../services/pinterestService.js"; // ✅ new
+import { downloadPinterest } from "../services/pinterestService.js";
+import { downloadTwitter } from "../services/twitterService.js"; // ✅ New
 
+// ✅ Instagram
 export const instagramDownload = async (req, res) => {
   const url = req.query.url;
   if (!url) return res.json({ status: false, message: "URL is required" });
@@ -27,17 +29,18 @@ export const instagramDownload = async (req, res) => {
       status: true,
       platform: "Instagram",
       creator: "Denish Tharu",
-      result
+      result,
     });
   } catch (err) {
     res.json({
       status: false,
       message: "Failed to fetch Instagram video/story",
-      error: err.response?.data || err.message
+      error: err.response?.data || err.message,
     });
   }
 };
 
+// ✅ TikTok
 export const tiktokDownload = async (req, res) => {
   const url = req.query.url;
   if (!url) return res.json({ status: false, message: "URL is required" });
@@ -50,13 +53,14 @@ export const tiktokDownload = async (req, res) => {
       status: true,
       platform: "TikTok",
       creator: "Denish Tharu",
-      result
+      result,
     });
   } catch (err) {
     res.json({ status: false, message: "Failed to fetch TikTok video", error: err.message });
   }
 };
 
+// ✅ YouTube
 export const youtubeDownload = async (req, res) => {
   const url = req.query.url;
   if (!url) return res.json({ status: false, message: "URL is required" });
@@ -69,13 +73,14 @@ export const youtubeDownload = async (req, res) => {
       status: true,
       platform: "YouTube",
       creator: "Denish Tharu",
-      result
+      result,
     });
   } catch (err) {
     res.json({ status: false, message: "Failed to fetch YouTube video", error: err.message });
   }
 };
 
+// ✅ Facebook
 export const facebookDownload = async (req, res) => {
   const url = req.query.url;
   if (!url) return res.json({ status: false, message: "URL is required" });
@@ -88,14 +93,14 @@ export const facebookDownload = async (req, res) => {
       status: true,
       platform: "Facebook",
       creator: "Denish Tharu",
-      result
+      result,
     });
   } catch (err) {
     res.json({ status: false, message: "Failed to fetch Facebook video", error: err.message });
   }
 };
 
-// ✅ New: Pinterest download
+// ✅ Pinterest
 export const pinterestDownload = async (req, res) => {
   const url = req.query.url;
   if (!url) return res.json({ status: false, message: "URL is required" });
@@ -110,9 +115,31 @@ export const pinterestDownload = async (req, res) => {
       status: true,
       platform: "Pinterest",
       creator: "Denish Tharu",
-      result
+      result,
     });
   } catch (err) {
     res.json({ status: false, message: "Failed to fetch Pinterest media", error: err.message });
+  }
+};
+
+// ✅ NEW: Twitter
+export const twitterDownload = async (req, res) => {
+  const url = req.query.url;
+  if (!url) return res.json({ status: false, message: "URL is required" });
+
+  try {
+    const result = await downloadTwitter(url);
+    if (!result || !result.status) {
+      return res.json({ status: false, message: "Failed to fetch Twitter media" });
+    }
+
+    res.json({
+      status: true,
+      platform: "Twitter",
+      creator: "Denish Tharu",
+      result,
+    });
+  } catch (err) {
+    res.json({ status: false, message: "Failed to fetch Twitter media", error: err.message });
   }
 };
