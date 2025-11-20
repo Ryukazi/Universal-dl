@@ -4,8 +4,9 @@ import {
   tiktokDownload, 
   youtubeDownload, 
   facebookDownload,
-  pinterestDownload, // ✅ Pinterest controller
-  twitterDownload    // ✅ Twitter controller (new)
+  pinterestDownload,
+  twitterDownload,
+  redditDownload   // ✅ Added Reddit
 } from "../controllers/downloadController.js";
 
 const router = express.Router();
@@ -25,7 +26,10 @@ router.get("/facebook", facebookDownload);
 // ✅ Pinterest
 router.get("/pinterest", pinterestDownload);
 
-// ✅ Twitter (new)
+// ✅ Twitter
 router.get("/twitter", twitterDownload);
+
+// ✅ Reddit (NEW)
+router.get("/reddit", redditDownload);
 
 export default router;
