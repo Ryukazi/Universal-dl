@@ -4,7 +4,8 @@ import * as TikTokService from "../services/tiktokService.js";
 import * as YouTubeService from "../services/youtubeService.js";
 import * as FacebookService from "../services/facebookService.js";
 import { downloadPinterest } from "../services/pinterestService.js";
-import { downloadTwitter } from "../services/twitterService.js"; // ✅ New
+import { downloadTwitter } from "../services/twitterService.js";
+import { downloadReddit } from "../services/redditService.js"; // ✅ NEW
 
 // ✅ Instagram
 export const instagramDownload = async (req, res) => {
@@ -20,7 +21,10 @@ export const instagramDownload = async (req, res) => {
     }
 
     if (!result) {
-      return res.json({ status: false, message: "Failed to fetch Instagram video/story" });
+      return res.json({
+        status: false,
+        message: "Failed to fetch Instagram video/story",
+      });
     }
 
     if (typeof result === "object") result.creator = "Denish Tharu";
@@ -56,7 +60,11 @@ export const tiktokDownload = async (req, res) => {
       result,
     });
   } catch (err) {
-    res.json({ status: false, message: "Failed to fetch TikTok video", error: err.message });
+    res.json({
+      status: false,
+      message: "Failed to fetch TikTok video",
+      error: err.message,
+    });
   }
 };
 
@@ -76,7 +84,11 @@ export const youtubeDownload = async (req, res) => {
       result,
     });
   } catch (err) {
-    res.json({ status: false, message: "Failed to fetch YouTube video", error: err.message });
+    res.json({
+      status: false,
+      message: "Failed to fetch YouTube video",
+      error: err.message,
+    });
   }
 };
 
@@ -96,7 +108,11 @@ export const facebookDownload = async (req, res) => {
       result,
     });
   } catch (err) {
-    res.json({ status: false, message: "Failed to fetch Facebook video", error: err.message });
+    res.json({
+      status: false,
+      message: "Failed to fetch Facebook video",
+      error: err.message,
+    });
   }
 };
 
@@ -108,7 +124,10 @@ export const pinterestDownload = async (req, res) => {
   try {
     const result = await downloadPinterest(url);
     if (!result || !result.status) {
-      return res.json({ status: false, message: "Failed to fetch Pinterest media" });
+      return res.json({
+        status: false,
+        message: "Failed to fetch Pinterest media",
+      });
     }
 
     res.json({
@@ -118,11 +137,15 @@ export const pinterestDownload = async (req, res) => {
       result,
     });
   } catch (err) {
-    res.json({ status: false, message: "Failed to fetch Pinterest media", error: err.message });
+    res.json({
+      status: false,
+      message: "Failed to fetch Pinterest media",
+      error: err.message,
+    });
   }
 };
 
-// ✅ NEW: Twitter
+// ✅ Twitter
 export const twitterDownload = async (req, res) => {
   const url = req.query.url;
   if (!url) return res.json({ status: false, message: "URL is required" });
@@ -130,7 +153,10 @@ export const twitterDownload = async (req, res) => {
   try {
     const result = await downloadTwitter(url);
     if (!result || !result.status) {
-      return res.json({ status: false, message: "Failed to fetch Twitter media" });
+      return res.json({
+        status: false,
+        message: "Failed to fetch Twitter media",
+      });
     }
 
     res.json({
@@ -140,6 +166,40 @@ export const twitterDownload = async (req, res) => {
       result,
     });
   } catch (err) {
-    res.json({ status: false, message: "Failed to fetch Twitter media", error: err.message });
+    res.json({
+      status: false,
+      message: "Failed to fetch Twitter media",
+      error: err.message,
+    });
+  }
+};
+
+// ✅ Reddit (NEW)
+export const redditDownload = async (req, res) => {
+  const url = req.query.url;
+  if (!url) return res.json({ status: false, message: "URL is required" });
+
+  try {
+    const result = await downloadReddit(url);
+
+    if (!result || !result.status) {
+      return res.json({
+        status: false,
+        message: "Failed to fetch Reddit media",
+      });
+    }
+
+    res.json({
+      status: true,
+      platform: "Reddit",
+      creator: "Denish Tharu",
+      result,
+    });
+  } catch (err) {
+    res.json({
+      status: false,
+      message: "Failed to fetch Reddit media",
+      error: err.message,
+    });
   }
 };
