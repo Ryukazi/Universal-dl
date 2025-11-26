@@ -4,7 +4,7 @@ export const downloadPinterest = async (url) => {
   try {
     if (!url) throw new Error("URL is required");
 
-    const apiUrl = `https://pinterest-down-api.vercel.app/api/pinterest?url=${encodeURIComponent(url)}`;
+    const apiUrl = `https://prenivdl.vercel.app/api/download?url=${encodeURIComponent(url)}`;
     const response = await axios.get(apiUrl);
     const data = response.data;
 
