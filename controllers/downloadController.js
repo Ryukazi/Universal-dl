@@ -6,7 +6,7 @@ import * as FacebookService from "../services/facebookService.js";
 import { downloadPinterest } from "../services/pinterestService.js";
 import { downloadTwitter } from "../services/twitterService.js";
 import { downloadReddit } from "../services/redditService.js"; // ✅ NEW
-import { downloadReddit } from "../services/spotifyService.js"; // ✅ NEW
+import { downloadSpotify } from "../services/spotifyService.js"; // ✅ NEW
 
 // ✅ Instagram
 export const instagramDownload = async (req, res) => {
