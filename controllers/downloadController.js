@@ -134,7 +134,7 @@ export const redditDownload = async (req, res) => {
   }
 };
 
-// Spotify (Updated)
+// controllers/downloadController.js → spotifyDownload (MINIMAL CHANGE)
 export const spotifyDownload = async (req, res) => {
   const url = req.query.url;
   if (!url) return res.json({ status: false, message: "URL is required" });
@@ -143,19 +143,11 @@ export const spotifyDownload = async (req, res) => {
     const result = await downloadSpotify(url);
 
     if (!result.status) {
+      // If timeout/retry, return helpful message + direct link
       return res.json({ 
         status: false, 
-        message: result.message || "Failed to fetch Spotify track" 
-      });
-    }
-
-    // If downloads empty, still return but with warning
-    if (result.data?.downloads?.length === 0) {
-      return res.json({ 
-        status: true,  // Success, but no download
-        platform: "Spotify",
-        creator: "Denish Tharu",
-        result: { ...result, warning: "No downloadable audio found for this track." }
+        message: result.message,
+        retryDirectly: result.retryLink || null 
       });
     }
 
@@ -163,14 +155,16 @@ export const spotifyDownload = async (req, res) => {
       status: true, 
       platform: "Spotify", 
       creator: "Denish Tharu", 
-      result 
+      result: {
+        ...result,
+        downloadUrl: result.data?.downloads?.[0]?.url || null, // Easy frontend access
+        title: result.data?.title || "Unknown",
+        artist: result.data?.author || "Unknown"
+      }
     });
 
   } catch (err) {
-    res.json({
-      status: false,
-      message: "Server error processing Spotify request",
-      error: err.message,
-    });
+    console.error("[Controller] Spotify error:", err);
+    res.json({ status: false, message: "Internal server error" });
   }
 };
