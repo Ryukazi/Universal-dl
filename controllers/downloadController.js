@@ -6,6 +6,7 @@ import * as FacebookService from "../services/facebookService.js";
 import { downloadPinterest } from "../services/pinterestService.js";
 import { downloadTwitter } from "../services/twitterService.js";
 import { downloadReddit } from "../services/redditService.js"; // ✅ NEW
+import { downloadReddit } from "../services/spotifyService.js"; // ✅ NEW
 
 // ✅ Instagram
 export const instagramDownload = async (req, res) => {
@@ -199,6 +200,35 @@ export const redditDownload = async (req, res) => {
     res.json({
       status: false,
       message: "Failed to fetch Reddit media",
+      error: err.message,
+    });
+  }
+};
+// ✅ spotify (NEW)
+export const spotifyDownload = async (req, res) => {
+  const url = req.query.url;
+  if (!url) return res.json({ status: false, message: "URL is required" });
+
+  try {
+    const result = await downloadSpotify(url);
+
+    if (!result || !result.status) {
+      return res.json({
+        status: false,
+        message: "Failed to fetch Reddit media",
+      });
+    }
+
+    res.json({
+      status: true,
+      platform: "spotify",
+      creator: "Denish Tharu",
+      result,
+    });
+  } catch (err) {
+    res.json({
+      status: false,
+      message: "Failed to fetch spotify media",
       error: err.message,
     });
   }
