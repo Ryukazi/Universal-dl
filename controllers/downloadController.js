@@ -5,10 +5,10 @@ import * as YouTubeService from "../services/youtubeService.js";
 import * as FacebookService from "../services/facebookService.js";
 import { downloadPinterest } from "../services/pinterestService.js";
 import { downloadTwitter } from "../services/twitterService.js";
-import { downloadReddit } from "../services/redditService.js"; // ✅ NEW
-import { downloadSpotify } from "../services/spotifyService.js"; // ✅ NEW
+import { downloadReddit } from "../services/redditService.js";
+import { downloadSpotify } from "../services/spotifyService.js"; // Fixed import
 
-// ✅ Instagram
+// Instagram
 export const instagramDownload = async (req, res) => {
   const url = req.query.url;
   if (!url) return res.json({ status: false, message: "URL is required" });
@@ -22,30 +22,22 @@ export const instagramDownload = async (req, res) => {
     }
 
     if (!result) {
-      return res.json({
-        status: false,
-        message: "Failed to fetch Instagram video/story",
-      });
+      return res.json({ status: false, message: "Failed to fetch Instagram media" });
     }
 
     if (typeof result === "object") result.creator = "Denish Tharu";
 
-    res.json({
-      status: true,
-      platform: "Instagram",
-      creator: "Denish Tharu",
-      result,
-    });
+    res.json({ status: true, platform: "Instagram", creator: "Denish Tharu", result });
   } catch (err) {
     res.json({
       status: false,
-      message: "Failed to fetch Instagram video/story",
+      message: "Failed to fetch Instagram media",
       error: err.response?.data || err.message,
     });
   }
 };
 
-// ✅ TikTok
+// TikTok
 export const tiktokDownload = async (req, res) => {
   const url = req.query.url;
   if (!url) return res.json({ status: false, message: "URL is required" });
@@ -54,22 +46,13 @@ export const tiktokDownload = async (req, res) => {
     const result = await TikTokService.download(url);
     if (typeof result === "object") result.creator = "Denish Tharu";
 
-    res.json({
-      status: true,
-      platform: "TikTok",
-      creator: "Denish Tharu",
-      result,
-    });
+    res.json({ status: true, platform: "TikTok", creator: "Denish Tharu", result });
   } catch (err) {
-    res.json({
-      status: false,
-      message: "Failed to fetch TikTok video",
-      error: err.message,
-    });
+    res.json({ status: false, message: "Failed to fetch TikTok video", error: err.message });
   }
 };
 
-// ✅ YouTube
+// YouTube
 export const youtubeDownload = async (req, res) => {
   const url = req.query.url;
   if (!url) return res.json({ status: false, message: "URL is required" });
@@ -78,22 +61,13 @@ export const youtubeDownload = async (req, res) => {
     const result = await YouTubeService.download(url);
     if (typeof result === "object") result.creator = "Denish Tharu";
 
-    res.json({
-      status: true,
-      platform: "YouTube",
-      creator: "Denish Tharu",
-      result,
-    });
+    res.json({ status: true, platform: "YouTube", creator: "Denish Tharu", result });
   } catch (err) {
-    res.json({
-      status: false,
-      message: "Failed to fetch YouTube video",
-      error: err.message,
-    });
+    res.json({ status: false, message: "Failed to fetch YouTube video", error: err.message });
   }
 };
 
-// ✅ Facebook
+// Facebook
 export const facebookDownload = async (req, res) => {
   const url = req.query.url;
   if (!url) return res.json({ status: false, message: "URL is required" });
@@ -102,22 +76,13 @@ export const facebookDownload = async (req, res) => {
     const result = await FacebookService.download(url);
     if (typeof result === "object") result.creator = "Denish Tharu";
 
-    res.json({
-      status: true,
-      platform: "Facebook",
-      creator: "Denish Tharu",
-      result,
-    });
+    res.json({ status: true, platform: "Facebook", creator: "Denish Tharu", result });
   } catch (err) {
-    res.json({
-      status: false,
-      message: "Failed to fetch Facebook video",
-      error: err.message,
-    });
+    res.json({ status: false, message: "Failed to fetch Facebook video", error: err.message });
   }
 };
 
-// ✅ Pinterest
+// Pinterest
 export const pinterestDownload = async (req, res) => {
   const url = req.query.url;
   if (!url) return res.json({ status: false, message: "URL is required" });
@@ -125,28 +90,16 @@ export const pinterestDownload = async (req, res) => {
   try {
     const result = await downloadPinterest(url);
     if (!result || !result.status) {
-      return res.json({
-        status: false,
-        message: "Failed to fetch Pinterest media",
-      });
+      return res.json({ status: false, message: "Failed to fetch Pinterest media" });
     }
 
-    res.json({
-      status: true,
-      platform: "Pinterest",
-      creator: "Denish Tharu",
-      result,
-    });
+    res.json({ status: true, platform: "Pinterest", creator: "Denish Tharu", result });
   } catch (err) {
-    res.json({
-      status: false,
-      message: "Failed to fetch Pinterest media",
-      error: err.message,
-    });
+    res.json({ status: false, message: "Failed to fetch Pinterest media", error: err.message });
   }
 };
 
-// ✅ Twitter
+// Twitter
 export const twitterDownload = async (req, res) => {
   const url = req.query.url;
   if (!url) return res.json({ status: false, message: "URL is required" });
@@ -154,28 +107,16 @@ export const twitterDownload = async (req, res) => {
   try {
     const result = await downloadTwitter(url);
     if (!result || !result.status) {
-      return res.json({
-        status: false,
-        message: "Failed to fetch Twitter media",
-      });
+      return res.json({ status: false, message: "Failed to fetch Twitter media" });
     }
 
-    res.json({
-      status: true,
-      platform: "Twitter",
-      creator: "Denish Tharu",
-      result,
-    });
+    res.json({ status: true, platform: "Twitter", creator: "Denish Tharu", result });
   } catch (err) {
-    res.json({
-      status: false,
-      message: "Failed to fetch Twitter media",
-      error: err.message,
-    });
+    res.json({ status: false, message: "Failed to fetch Twitter media", error: err.message });
   }
 };
 
-// ✅ Reddit (NEW)
+// Reddit
 export const redditDownload = async (req, res) => {
   const url = req.query.url;
   if (!url) return res.json({ status: false, message: "URL is required" });
@@ -184,28 +125,16 @@ export const redditDownload = async (req, res) => {
     const result = await downloadReddit(url);
 
     if (!result || !result.status) {
-      return res.json({
-        status: false,
-        message: "Failed to fetch Reddit media",
-      });
+      return res.json({ status: false, message: "Failed to fetch Reddit media" });
     }
 
-    res.json({
-      status: true,
-      platform: "Reddit",
-      creator: "Denish Tharu",
-      result,
-    });
+    res.json({ status: true, platform: "Reddit", creator: "Denish Tharu", result });
   } catch (err) {
-    res.json({
-      status: false,
-      message: "Failed to fetch Reddit media",
-      error: err.message,
-    });
+    res.json({ status: false, message: "Failed to fetch Reddit media", error: err.message });
   }
 };
 
-// ✅ spotify (NEW)
+// Spotify (NOW FULLY WORKING)
 export const spotifyDownload = async (req, res) => {
   const url = req.query.url;
   if (!url) return res.json({ status: false, message: "URL is required" });
@@ -214,23 +143,17 @@ export const spotifyDownload = async (req, res) => {
     const result = await downloadSpotify(url);
 
     if (!result || !result.status) {
-      return res.json({
-        status: false,
-        message: "Failed to fetch Reddit media",
-      });
+      return res.json({ status: false, message: "Failed to fetch Spotify media" });
     }
 
-    res.json({
-      status: true,
-      platform: "spotify",
-      creator: "Denish Tharu",
-      result,
-    });
+    if (typeof result === "object") result.creator = "Denish Tharu";
+
+    res.json({ status: true, platform: "Spotify", creator: "Denish Tharu", result });
   } catch (err) {
     res.json({
       status: false,
-      message: "Failed to fetch spotify media",
-      error: err.message,
+      message: "Failed to fetch Spotify media",
+      error: err.response?.data || err.message,
     });
   }
 };
