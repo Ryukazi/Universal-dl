@@ -4,10 +4,8 @@ import downloadRoutes from "./routes/downloadRoutes.js";
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Use download routes
 app.use("/api", downloadRoutes);
 
-// Root route to show API info
 app.get("/", (req, res) => {
   res.send(`
     <h2>Universal Downloader API</h2>
@@ -18,7 +16,7 @@ app.get("/", (req, res) => {
       <li>/api/tiktok?url=TIKTOK_URL</li>
       <li>/api/youtube?url=YOUTUBE_URL</li>
       <li>/api/facebook?url=FACEBOOK_URL</li>
-      <li>/api/pinterest?url=PINTEREST_URL</li> <!-- ✅ Added Pinterest -->
+      <li>/api/pinterest?url=PINTEREST_URL</li>
       <li>/api/twitter?url=TWITTER_URL</li>
       <li>/api/reddit?url=REDDIT_URL</li>
       <li>/api/spotify?url=SPOTIFY_URL</li>
@@ -27,19 +25,19 @@ app.get("/", (req, res) => {
   `);
 });
 
-// Start server
 app.listen(PORT, () => {
   console.log("======================================");
-  console.log("🎬 Universal Downloader API is running!");
-  console.log(`📌 Creator: Denish Tharu`);
-  console.log(`🚀 Server running at: http://localhost:${PORT}`);
-  console.log("📄 Available Endpoints:");
-  console.log("   [GET] /api/instagram?url=INSTAGRAM_URL");
-  console.log("   [GET] /api/tiktok?url=TIKTOK_URL");
-  console.log("   [GET] /api/youtube?url=YOUTUBE_URL");
-  console.log("   [GET] /api/facebook?url=FACEBOOK_URL");
-  console.log("   [GET] /api/pinterest?url=PINTEREST_URL"); // ✅ Added Pinterest
-  console.log("   [GET] /api/twitter?url=TWITTER_URL");
-  console.log("   [GET] /api/spotify?url=SPOTIFY_URL");
+  console.log("Universal Downloader API is running!");
+  console.log("Creator: Denish Tharu");
+  console.log(`Server running at: http://localhost:${PORT}`);
+  console.log("Available Endpoints:");
+  console.log("   [GET] /api/instagram?url=...");
+  console.log("   [GET] /api/tiktok?url=...");
+  console.log("   [GET] /api/youtube?url=...");
+  console.log("   [GET] /api/facebook?url=...");
+  console.log("   [GET] /api/pinterest?url=...");
+  console.log("   [GET] /api/twitter?url=...");
+  console.log("   [GET] /api/reddit?url=...");
+  console.log("   [GET] /api/spotify?url=...");
   console.log("======================================");
 });
