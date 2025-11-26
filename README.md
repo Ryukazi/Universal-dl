@@ -25,6 +25,7 @@ Download media from **TikTok, YouTube, Facebook, Instagram, and Pinterest** — 
   - Pinterest
   - Twitter
   - reddit
+  - spotify
 - Easy REST API endpoints
 - Built with JavaScript
 - Modular architecture: services, controllers, routes
