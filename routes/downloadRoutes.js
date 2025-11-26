@@ -6,7 +6,8 @@ import {
   facebookDownload,
   pinterestDownload,
   twitterDownload,
-  redditDownload   // ✅ Added Reddit
+  redditDownload,
+  spotifyDownload // ✅ Added Reddit
 } from "../controllers/downloadController.js";
 
 const router = express.Router();
@@ -31,5 +32,8 @@ router.get("/twitter", twitterDownload);
 
 // ✅ Reddit (NEW)
 router.get("/reddit", redditDownload);
+
+// ✅ spotify (NEW)
+router.get("/spotify", spotifyDownload);
 
 export default router;
