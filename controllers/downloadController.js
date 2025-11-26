@@ -134,35 +134,43 @@ export const redditDownload = async (req, res) => {
   }
 };
 
-// In downloadController.js → spotifyDownload
+// Spotify (Updated)
 export const spotifyDownload = async (req, res) => {
   const url = req.query.url;
   if (!url) return res.json({ status: false, message: "URL is required" });
 
   try {
-    const apiResponse = await downloadSpotify(url);
+    const result = await downloadSpotify(url);
 
-    // prenivdl already returns { status: true, data: { ... } }
-    if (!apiResponse.status) {
-      return res.json({
-        status: false,
-        message: apiResponse.message || "Invalid Spotify link"
+    if (!result.status) {
+      return res.json({ 
+        status: false, 
+        message: result.message || "Failed to fetch Spotify track" 
       });
     }
 
-    // Just forward the raw response and add your name
-    res.json({
-      status: true,
-      platform: "Spotify",
-      creator: "Denish Tharu",
-      result: apiResponse  // Full prenivdl response goes here
+    // If downloads empty, still return but with warning
+    if (result.data?.downloads?.length === 0) {
+      return res.json({ 
+        status: true,  // Success, but no download
+        platform: "Spotify",
+        creator: "Denish Tharu",
+        result: { ...result, warning: "No downloadable audio found for this track." }
+      });
+    }
+
+    res.json({ 
+      status: true, 
+      platform: "Spotify", 
+      creator: "Denish Tharu", 
+      result 
     });
 
   } catch (err) {
     res.json({
       status: false,
-      message: "Server error",
-      error: err.message
+      message: "Server error processing Spotify request",
+      error: err.message,
     });
   }
 };
