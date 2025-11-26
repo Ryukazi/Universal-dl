@@ -21,6 +21,7 @@ app.get("/", (req, res) => {
       <li>/api/pinterest?url=PINTEREST_URL</li> <!-- ✅ Added Pinterest -->
       <li>/api/twitter?url=TWITTER_URL</li>
       <li>/api/reddit?url=REDDIT_URL</li>
+      <li>/api/spotify?url=SPOTIFY_URL</li>
     </ul>
     <p>Use the endpoints with a <strong>GET</strong> request and add the <code>url</code> query parameter.</p>
   `);
@@ -39,5 +40,6 @@ app.listen(PORT, () => {
   console.log("   [GET] /api/facebook?url=FACEBOOK_URL");
   console.log("   [GET] /api/pinterest?url=PINTEREST_URL"); // ✅ Added Pinterest
   console.log("   [GET] /api/twitter?url=TWITTER_URL");
+  console.log("   [GET] /api/spotify?url=SPOTIFY_URL");
   console.log("======================================");
 });
