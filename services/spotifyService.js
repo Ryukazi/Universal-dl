@@ -21,7 +21,7 @@ export const downloadSpotify = async (url) => {
       console.log(`[Spotify] Fetching: ${url}`); // Vercel log
 
       const response = await axios.get(
-        `https://prenivdl.vercel.app/api/download?url=${encodeURIComponent(url)}`,
+        `https://spotdown-api.onrender.com/api/generate-link?trackUrl=${encodeURIComponent(url)}`,
         {
           timeout: 30000, // 30s — crushes cold starts
           headers: {
