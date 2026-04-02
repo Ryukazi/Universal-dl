@@ -1,8 +1,27 @@
 import axios from "axios";
 
 export const download = async (url) => {
-  const { data } = await axios.get(
-    `https://love-text-rouge.vercel.app/api/tiktok?url=${encodeURIComponent(url)}`
-  );
-  return data;
+  try {
+    const api = `https://tiktock-web.vercel.app/api/downloadVideo?url=${encodeURIComponent(url)}`;
+
+    // Check if video exists (optional but useful)
+    await axios.get(api, {
+      responseType: "stream"
+    });
+
+    return {
+      status: true,
+      creator: "Denish",
+      result: {
+        download: api
+      }
+    };
+
+  } catch (err) {
+    return {
+      status: false,
+      message: "Failed to fetch video",
+      error: err.message
+    };
+  }
 };
